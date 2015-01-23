@@ -41,7 +41,11 @@ peggy.input = (function() {
         });
        
         dom.bind(board, "touchstart", function(event) {
-            handleClick(event, "TOUCH", event.targetTouches[0]);
+            handleClick(event, "TOUCH", event.changedTouches[0]);
+        });
+
+        dom.bind(board, "touchend", function(event) {
+            handleClick(event, "TOUCH_END", event.targetTouches[0]);
         });
     }
 
