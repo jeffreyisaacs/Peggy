@@ -162,6 +162,39 @@ peggy.screens["play-screen"] = (function() {
         if (arguments.length === 0 || !marker.moveMask) {
              return;
         }
+
+        // Clamp moves to valid jumps
+        if (x === marker.x && y !== marker.y) {
+            if (y > marker.y && 
+                (marker.moveMask & peggy.boardMoveEnum.DOWN) > 0) {
+	        y = marker.y + 2;
+	    }
+            else if (y < marker.y && 
+                (marker.moveMask & peggy.boardMoveEnum.UP) > 0) {
+	        y = marker.y - 2;
+	    }
+	    else {
+	        y = marker.y;
+            }
+        }
+        else if (x !== marker.x && y === marker.y) {
+            if (x > marker.x && 
+                (marker.moveMask & peggy.boardMoveEnum.RIGHT) > 0) {
+	        x = marker.x + 2;
+	    }
+            else if (x < marker.x && 
+                (marker.moveMask & peggy.boardMoveEnum.LEFT) > 0) {
+	        x = marker.x - 2;
+	    }
+	    else {
+	        x = marker.x;
+            }
+        }
+        else {
+            x = marker.x;
+            y = marker.y;
+        }
+        
         peggy.board.jump(
             marker.x, marker.y,
             x, y,
