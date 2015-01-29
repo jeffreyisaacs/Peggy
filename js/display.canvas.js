@@ -7,7 +7,7 @@ peggy.display = (function() {
     var dom = peggy.dom,
         boardSetup = peggy.boardSetup,
         $ = dom.$,
-        canvas, ctx,
+        canvasPl, ctxPl,
         cols, rows,
         pegHeight,
         pegWidth,
@@ -18,17 +18,18 @@ peggy.display = (function() {
         arrowWidth;
 
     function setup() {
-        canvas = document.getElementById("play");
-        ctx = canvas.getContext("2d");
+        canvasPl = document.getElementById("play");
+        ctxPl = canvasPl.getContext("2d");
         cols  = boardSetup.cols();
         rows  = boardSetup.rows();
-        pegWidth = canvas.width/rows;
-        pegHeight = canvas.height/cols;
+        pegWidth = canvasPl.width/rows;
+        pegHeight = canvasPl.height/cols;
         shaftLen   = pegWidth * 2;
         arrowWidth = pegWidth * 0.3;
     }
 
     function draw(value, x, y) {
+        var ctx = ctxPl;
         if (value === boardSetup.invalidVal()){
             ctx.fillStyle = "rgba(200,200,200,1)";
             ctx.fillRect(pegWidth * x, pegHeight * y, pegWidth, pegHeight);
@@ -50,8 +51,9 @@ peggy.display = (function() {
     }
 
     function redraw(state, callback) {
+        var ctx = ctxPl;
         ctx.fillStyle = "rgba(200,200,200,1)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0, 0, canvasPl.width, canvasPl.height);
         boardState = state;
         for (var x = 0; x < cols; x++) {
             for (var y = 0; y < rows; y++) {
@@ -74,6 +76,7 @@ peggy.display = (function() {
     }
 
     function renderMarker() {
+        var ctx = ctxPl;
         if (!marker) {
             return;
         }
