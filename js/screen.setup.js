@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 peggy.screens["setup-screen"] = (function() {
     var boardSetup = peggy.boardSetup,
         dom = peggy.dom,
@@ -23,9 +17,6 @@ peggy.screens["setup-screen"] = (function() {
                 }
                 
                 peggy.screens["play-screen"].setRestartFlag();
-                if ($('#setup-screen #loadSolution')[0].checked === true){
-                    peggy.screens["play-screen"].setLoadSolutionFlag();
-                }
                 peggy.game.showScreen("play-screen");
             });
             
@@ -52,8 +43,6 @@ peggy.screens["setup-screen"] = (function() {
             else
                 buttons[i].checked = (buttons[i].value === "0");
         }
-        
-        $('#setup-screen #loadSolution')[0].checked = false;
     }
 
     return {

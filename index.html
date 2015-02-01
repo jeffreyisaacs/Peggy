@@ -19,6 +19,7 @@ and open the template in the editor.
         <script src="js/screen.setup.js" type="text/javascript"></script>
         <script src="js/input.js" type="text/javascript"></script>
         <script src="js/screen.play.js" type="text/javascript"></script>
+        <script src="js/screen.solve.js" type="text/javascript"></script>
         <script src="js/game.js" type="text/javascript"></script>
     </head>
     <body>
@@ -28,15 +29,17 @@ and open the template in the editor.
                     <button class="play-button" id="undo">Undo</button>
                     <button class="play-button" id="redo">Redo</button>
                 </div>
-                <div id="play-controls2">
-                    <button class="play-button" id="help">Help...</button>
-                    <button class="play-button" id="setup">Reset...</button>
-                </div>
-                <div class="game-board">
-                    <canvas id="play" width="400" height="400"></canvas>
-                </div>
                 <div id="play-status">
                     <output id="status">0 Pegs Remaining</output>
+                </div>
+                <div id="game-board">
+                    <canvas id="play"></canvas>
+                    <canvas id="annot"></canvas>
+                </div>
+                <div id="play-controls2">
+                    <button class="play-button" id="help">Help...</button>
+                    <button class="play-button" id="solve">Solve...</button>
+                    <button class="play-button" id="setup">Reset...</button>
                 </div>
             </div>
 
@@ -61,12 +64,14 @@ and open the template in the editor.
                     <input type="radio" name="reverse" value="1" />Jumping a hole fills it
                     </label>
                 </div>
-                <div class="setupControl">
-                    Solution:
-                    <label class="block">
-                    <input type="checkbox" id="loadSolution"/>Load Solution
-                    <label>
+                <div id="setup-buttons">
+                    <button class="play-button" id="ok">OK</button>
+                    <button class="play-button" id="cancel">Cancel</button>
                 </div>
+            </div>
+            
+            <div class="screen" id="solve-screen">
+                <p>Put the solution in Undo/Redo stack?</p>
                 <div id="setup-buttons">
                     <button class="play-button" id="ok">OK</button>
                     <button class="play-button" id="cancel">Cancel</button>
@@ -75,26 +80,20 @@ and open the template in the editor.
             
             <div class="screen" id="help-screen">
                 <div class="howToPlay">
-                    <p> Peggy lets you play the ancient game of peg solitaire.</p>
-                    <p> Peggy can:</p>
-                    <ul>
-                        <li>Play a standard game - jumping a peg removes it</li>
-                        <li>Play a reverse game - jumping a hole fills it</li>
-                        <li>Visualize your moves</li>
-                        <li>Load and step through the solution</li>
-                        <li>Play both European and English boards</li>
-                    </ul>
+                    <h2> Peggy!</h2>
+                    <p> Game #1 is conventional peg solitaire. Jumping a peg removes it. Goal is to end the game with one peg left.</li>
+                    <p> Game #2 is reverse peg solitaire. Jumping a hole fills it with a peg. Goal is to end the game with one hole left.</li>
                     <p>Credits:
                     <ul>
                         <li><a href="http://en.wikipedia.org/wiki/Peg_solitaire" target="_blank">
                         Wikipedia Peg Solitaire Article</a>
                         </li>
                         <li><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-1119975085.html" target="_blank">
-                        HTML5 Games: Creating Fun with HTML5, CSS3, and WebGL by Jacob Seidelin</a>
+                        HTML5 Games by Jacob Seidelin</a>
                         </li>
                     </ul> 
                     
-                    <p>(c) Jeffrey Isaacs 2015
+                    <p>Created by Jeffrey Isaacs 2015
                 </div>
 
                 <div id="help-buttons">

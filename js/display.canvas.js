@@ -1,13 +1,9 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 peggy.display = (function() {
     var dom = peggy.dom,
         boardSetup = peggy.boardSetup,
         $ = dom.$,
         canvasPl, ctxPl,
+        canvasAn, ctxAn,
         cols, rows,
         pegHeight,
         pegWidth,
@@ -20,10 +16,19 @@ peggy.display = (function() {
     function setup() {
         canvasPl = document.getElementById("play");
         ctxPl = canvasPl.getContext("2d");
+        canvasAn = document.getElementById("annot");
+        ctxAn = canvasAn.getContext("2d");
+
+        // Canvas bitmap size should match actual size
+        canvasPl.width  = canvasPl.clientWidth;
+        canvasPl.height = canvasPl.clientHeight;
+        canvasAn.width  = canvasAn.clientWidth;
+        canvasAn.height = canvasAn.clientHeight;
+
         cols  = boardSetup.cols();
         rows  = boardSetup.rows();
         pegWidth = canvasPl.width/rows;
-        pegHeight = canvasPl.height/cols;
+        pegHeight = pegWidth;
         shaftLen   = pegWidth * 2;
         arrowWidth = pegWidth * 0.3;
     }
@@ -67,16 +72,12 @@ peggy.display = (function() {
     }
     
     function clearMarker() {
-        if (marker) {
-            var x = marker.x,
-                y = marker.y;
-            draw(boardSetup.invalidVal(), x, y);
-            draw(boardState[y][x], x, y);
-        }
+        var ctx = ctxAn;
+        ctx.clearRect(0, 0, canvasAn.width, canvasAn.height);
     }
 
     function renderMarker() {
-        var ctx = ctxPl;
+        var ctx = ctxAn;
         if (!marker) {
             return;
         }

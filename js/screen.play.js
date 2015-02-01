@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 peggy.screens["play-screen"] = (function() {
     var board = peggy.board,
         boardSetup = peggy.boardSetup,
@@ -27,12 +22,12 @@ peggy.screens["play-screen"] = (function() {
         
         var remaining = board.remaining(redoJumpVal);
         var status = (boardSetup.getReversePlay() ? "Holes" : "Pegs") +
-                " Remaining: " + remaining;
+                " left: " + remaining;
         if (remaining === 1) {
-            status += "...SOLVED!";
+            status = "SOLVED!";
         }
         else if (!board.hasJumps(redoJumpVal)) {
-            status += "...No More Moves";
+            status = "No More Moves";
         }
         $("#play-screen #status")[0].value = status;
     }
@@ -96,6 +91,9 @@ peggy.screens["play-screen"] = (function() {
             peggy.dom.bind("#play-screen #help", "click", function(e) {
                 peggy.game.showScreen("help-screen");
             });
+            peggy.dom.bind("#play-screen #solve", "click", function(e) {
+                peggy.game.showScreen("solve-screen");
+            });
             firstRun = false;
         }
         
@@ -122,14 +120,18 @@ peggy.screens["play-screen"] = (function() {
                 loadSolutionFlag === false ? [] : 
                 boardSetup.getSolution());
             jumpInsertIdx = 0;
-            peggy.board.initialize(boardSetup, function(){});
-            display.initialize(function () {
-                display.redraw(board.getBoard(), function () {
-                // do nothing for now
+
+            // Size once displayed
+            window.setTimeout(function() {
+                peggy.board.initialize(boardSetup, function(){});
+                display.initialize(function () {
+                    display.redraw(board.getBoard(), function () {
+                    // do nothing for now
+                    });
                 });
-            });
-            updateControls();
-            placeMarker();
+                updateControls();
+                placeMarker();
+		}, 100);
         }
         restartFlag = false;
         loadSolutionFlag = false;

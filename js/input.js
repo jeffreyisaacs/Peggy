@@ -11,7 +11,7 @@ peggy.input = (function() {
             return;
         }
         
-        var board = $("#play-screen #play")[0],
+        var board = $("#play-screen #game-board")[0],
             rect = board.getBoundingClientRect(),
             relX, relY,
             pegX, pegY;
@@ -30,7 +30,7 @@ peggy.input = (function() {
 
     function initialize() {
         inputHandlers = {};
-        var board = $("#play-screen .game-board")[0];
+        var board = $("#play-screen #game-board")[0];
 
         dom.bind(board, "mousedown", function(event) {
             handleClick(event, "CLICK", event);
